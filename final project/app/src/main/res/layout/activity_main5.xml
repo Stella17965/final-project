@@ -65,6 +65,7 @@
     </LinearLayout>
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="361dp"
         android:layout_height="367dp"
         app:layout_constraintBottom_toBottomOf="parent"

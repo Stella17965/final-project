@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +34,15 @@ public class MainActivity5 extends AppCompatActivity {
             String B;
             String C;
             String D;
+            int answer;
         }
     }
 
     private Button btn_previous,btn_next;
     private TextView tv_num,tv_question;
+    private RadioGroup rg;
     private RadioButton rb_A,rb_B,rb_C,rb_D;
-    int num=1;
+    int num=0,anw=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,43 +53,20 @@ public class MainActivity5 extends AppCompatActivity {
         btn_next=findViewById(R.id.btn_next);
         tv_num=findViewById(R.id.tv_num);
         tv_question=findViewById(R.id.tv_question);
+        rg=findViewById(R.id.radioGroup);
         rb_A=findViewById(R.id.rb_A);
         rb_B=findViewById(R.id.rb_B);
         rb_C=findViewById(R.id.rb_C);
         rb_D=findViewById(R.id.rb_D);
 
-        String URL_01="https://api.npoint.io/d1ff2a1ee0775d2571a2";
+        String URL_01="https://api.npoint.io/63e71e90551890751555";
         Request request =new Request.Builder().url(URL_01).build();
         num=0;
         tv_num.setText("第"+(num+1)+"題");
 
-        new OkHttpClient().newCall(request).enqueue(new Callback(){
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
-                if(response.code()==200){
-                    if(response.body()==null) return;
-                    Data data = new Gson().fromJson(response.body().string(),Data.class);
-                    //final String[] items =new String[data.questions.length];
 
-                    runOnUiThread(()->{
-                        tv_question.setText(data.questions[num].Q_text);
-                        rb_A.setText(data.questions[num].A);
-                        rb_B.setText(data.questions[num].B);
-                        rb_C.setText(data.questions[num].C);
-                        rb_D.setText(data.questions[num].D);
-                    });
 
-                }else if(!response.isSuccessful()){
-                    Log.e("伺服器錯誤",response.code()+" "+response.message());
-                }else{
-                    Log.e("其他錯誤",response.code()+" "+response.message());
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call call,@NonNull IOException e){
-                Log.e("查詢失敗",e.getMessage());
-            }
-        });
+
 
         btn_previous.setOnClickListener(view -> {
             if(num==0){
@@ -94,6 +74,34 @@ public class MainActivity5 extends AppCompatActivity {
             }else{
                 num--;
                 tv_num.setText("第"+(num+1)+"題");
+                new OkHttpClient().newCall(request).enqueue(new Callback(){
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
+                        if(response.code()==200){
+                            if(response.body()==null) return;
+                            Data data = new Gson().fromJson(response.body().string(),Data.class);
+                            anw=data.questions[num].answer;
+                            //final String[] items =new String[data.questions.length];
+
+                            runOnUiThread(()->{
+                                tv_question.setText(data.questions[num].Q_text);
+                                rb_A.setText(data.questions[num].A);
+                                rb_B.setText(data.questions[num].B);
+                                rb_C.setText(data.questions[num].C);
+                                rb_D.setText(data.questions[num].D);
+                            });
+
+                        }else if(!response.isSuccessful()){
+                            Log.e("伺服器錯誤",response.code()+" "+response.message());
+                        }else{
+                            Log.e("其他錯誤",response.code()+" "+response.message());
+                        }
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call call,@NonNull IOException e){
+                        Log.e("查詢失敗",e.getMessage());
+                    }
+                });
 
             }
         });
@@ -101,9 +109,57 @@ public class MainActivity5 extends AppCompatActivity {
         btn_next.setOnClickListener(view -> {
             num++;
             tv_num.setText("第"+(num+1)+"題");
+            new OkHttpClient().newCall(request).enqueue(new Callback(){
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
+                    if(response.code()==200){
+                        if(response.body()==null) return;
+                        Data data = new Gson().fromJson(response.body().string(),Data.class);
+                        //final String[] items =new String[data.questions.length];
+
+                        runOnUiThread(()->{
+                            tv_question.setText(data.questions[num].Q_text);
+                            rb_A.setText(data.questions[num].A);
+                            rb_B.setText(data.questions[num].B);
+                            rb_C.setText(data.questions[num].C);
+                            rb_D.setText(data.questions[num].D);
+                        });
+
+                    }else if(!response.isSuccessful()){
+                        Log.e("伺服器錯誤",response.code()+" "+response.message());
+                    }else{
+                        Log.e("其他錯誤",response.code()+" "+response.message());
+                    }
+                }
+                @Override
+                public void onFailure(@NonNull Call call,@NonNull IOException e){
+                    Log.e("查詢失敗",e.getMessage());
+                }
+            });
         });
 
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, int i) {
+                switch(i){
+                    case R.id.rb_A:
+                        anw=1;
+                        if(anw==answer){
 
+                        }
+                        break;
+                    case R.id.rb_B:
+                        anw=2;
+                        break;
+                    case R.id.rb_C:
+                        anw=3;
+                        break;
+                    case R.id.rb_D:
+                        anw=4;
+                        break;
+                }
+            }
+        });
 
     }
 }
