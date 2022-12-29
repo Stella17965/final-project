@@ -43,6 +43,7 @@ public class MainActivity5 extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb_A,rb_B,rb_C,rb_D;
     int num=0,anw=0;
+    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +65,41 @@ public class MainActivity5 extends AppCompatActivity {
         num=0;
         tv_num.setText("第"+(num+1)+"題");
 
+        new OkHttpClient().newCall(request).enqueue(new Callback(){
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
+                if(response.code()==200){
+                    if(response.body()==null) return;
+                    data = new Gson().fromJson(response.body().string(),Data.class);
+                    //final String[] items =new String[data.questions.length];
 
+                    runOnUiThread(()->{
+                        tv_question.setText(data.questions[num].Q_text);
+                        rb_A.setText(data.questions[num].A);
+                        rb_B.setText(data.questions[num].B);
+                        rb_C.setText(data.questions[num].C);
+                        rb_D.setText(data.questions[num].D);
+                    });
 
-
-
+                }else if(!response.isSuccessful()){
+                    Log.e("伺服器錯誤",response.code()+" "+response.message());
+                }else{
+                    Log.e("其他錯誤",response.code()+" "+response.message());
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call call,@NonNull IOException e){
+                Log.e("查詢失敗",e.getMessage());
+            }
+        });
+        /*
         btn_previous.setOnClickListener(view -> {
             if(num==0){
                 Toast.makeText(MainActivity5.this,"已經在第一題了",Toast.LENGTH_SHORT).show();
             }else{
                 num--;
                 tv_num.setText("第"+(num+1)+"題");
+
                 new OkHttpClient().newCall(request).enqueue(new Callback(){
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
@@ -105,37 +131,31 @@ public class MainActivity5 extends AppCompatActivity {
 
             }
         });
+        */
+
 
         btn_next.setOnClickListener(view -> {
-            num++;
-            tv_num.setText("第"+(num+1)+"題");
-            new OkHttpClient().newCall(request).enqueue(new Callback(){
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response)throws IOException {
-                    if(response.code()==200){
-                        if(response.body()==null) return;
-                        Data data = new Gson().fromJson(response.body().string(),Data.class);
-                        //final String[] items =new String[data.questions.length];
+            rb_A.setChecked(false);
+            rb_B.setChecked(false);
+            rb_C.setChecked(false);
+            rb_D.setChecked(false);
+            
+            if(num==(data.questions.length-1)){
+                Toast.makeText(MainActivity5.this,"最後一題",Toast.LENGTH_SHORT).show();
+            }else{
+                num++;
+                tv_num.setText("第"+(num+1)+"題");
 
-                        runOnUiThread(()->{
-                            tv_question.setText(data.questions[num].Q_text);
-                            rb_A.setText(data.questions[num].A);
-                            rb_B.setText(data.questions[num].B);
-                            rb_C.setText(data.questions[num].C);
-                            rb_D.setText(data.questions[num].D);
-                        });
+                runOnUiThread(()->{
+                    tv_question.setText(data.questions[num].Q_text);
+                    rb_A.setText(data.questions[num].A);
+                    rb_B.setText(data.questions[num].B);
+                    rb_C.setText(data.questions[num].C);
+                    rb_D.setText(data.questions[num].D);
+                });
+            }
 
-                    }else if(!response.isSuccessful()){
-                        Log.e("伺服器錯誤",response.code()+" "+response.message());
-                    }else{
-                        Log.e("其他錯誤",response.code()+" "+response.message());
-                    }
-                }
-                @Override
-                public void onFailure(@NonNull Call call,@NonNull IOException e){
-                    Log.e("查詢失敗",e.getMessage());
-                }
-            });
+
         });
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
@@ -144,18 +164,19 @@ public class MainActivity5 extends AppCompatActivity {
                 switch(i){
                     case R.id.rb_A:
                         anw=1;
-                        if(anw==answer){
 
-                        }
                         break;
                     case R.id.rb_B:
                         anw=2;
+
                         break;
                     case R.id.rb_C:
                         anw=3;
+
                         break;
                     case R.id.rb_D:
                         anw=4;
+
                         break;
                 }
             }
