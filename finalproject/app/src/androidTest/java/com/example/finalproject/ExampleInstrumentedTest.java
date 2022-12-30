@@ -1,4 +1,4 @@
-package com.stella.finalproject;
+package com.example.finalproject;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.stella.finalproject", appContext.getPackageName());
+        assertEquals("com.example.finalproject", appContext.getPackageName());
     }
 }

@@ -1,8 +1,7 @@
-package com.stella.finalproject;
+package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

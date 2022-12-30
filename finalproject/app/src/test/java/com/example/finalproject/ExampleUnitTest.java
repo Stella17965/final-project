@@ -1,4 +1,4 @@
-package com.stella.finalproject;
+package com.example.finalproject;
 
 import org.junit.Test;
 
