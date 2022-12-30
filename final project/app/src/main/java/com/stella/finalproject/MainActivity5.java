@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +43,7 @@ public class MainActivity5 extends AppCompatActivity {
     private TextView tv_num,tv_question;
     private RadioGroup rg;
     private RadioButton rb_A,rb_B,rb_C,rb_D;
-    int num=0,anw=0;
+    int num=0,anw=0,answer=0;
     Data data;
 
     @Override
@@ -79,6 +80,7 @@ public class MainActivity5 extends AppCompatActivity {
                         rb_B.setText(data.questions[num].B);
                         rb_C.setText(data.questions[num].C);
                         rb_D.setText(data.questions[num].D);
+                        answer=data.questions[num].answer;
                     });
 
                 }else if(!response.isSuccessful()){
@@ -135,11 +137,12 @@ public class MainActivity5 extends AppCompatActivity {
 
 
         btn_next.setOnClickListener(view -> {
-            rb_A.setChecked(false);
-            rb_B.setChecked(false);
-            rb_C.setChecked(false);
-            rb_D.setChecked(false);
-            
+            rg.clearCheck();
+            rb_A.setBackgroundColor(Color.rgb(255,255,255));
+            rb_B.setBackgroundColor(Color.rgb(255,255,255));
+            rb_C.setBackgroundColor(Color.rgb(255,255,255));
+            rb_D.setBackgroundColor(Color.rgb(255,255,255));
+
             if(num==(data.questions.length-1)){
                 Toast.makeText(MainActivity5.this,"最後一題",Toast.LENGTH_SHORT).show();
             }else{
@@ -152,6 +155,7 @@ public class MainActivity5 extends AppCompatActivity {
                     rb_B.setText(data.questions[num].B);
                     rb_C.setText(data.questions[num].C);
                     rb_D.setText(data.questions[num].D);
+                    answer=data.questions[num].answer;
                 });
             }
 
@@ -161,22 +165,46 @@ public class MainActivity5 extends AppCompatActivity {
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(RadioGroup group, int i) {
+
                 switch(i){
                     case R.id.rb_A:
                         anw=1;
-
+                        if(anw != answer){
+                            rb_A.setBackgroundColor(Color.rgb(236,45,110));
+                        }
                         break;
                     case R.id.rb_B:
                         anw=2;
-
+                        if(anw != answer){
+                            rb_B.setBackgroundColor(Color.rgb(236,45,110));
+                        }
                         break;
                     case R.id.rb_C:
                         anw=3;
-
+                        if(anw != answer){
+                            rb_C.setBackgroundColor(Color.rgb(236,45,110));
+                        }
                         break;
                     case R.id.rb_D:
                         anw=4;
-
+                        if(anw != answer){
+                            rb_D.setBackgroundColor(Color.rgb(236,45,110));
+                        }
+                        break;
+                }
+                Toast.makeText(MainActivity5.this,"答案是"+answer,Toast.LENGTH_SHORT).show();
+                switch(answer){
+                    case 1:
+                        rb_A.setBackgroundColor(Color.rgb(98,203,109));
+                        break;
+                    case 2:
+                        rb_B.setBackgroundColor(Color.rgb(98,203,109));
+                        break;
+                    case 3:
+                        rb_C.setBackgroundColor(Color.rgb(98,203,109));
+                        break;
+                    case 4:
+                        rb_D.setBackgroundColor(Color.rgb(98,203,109));
                         break;
                 }
             }

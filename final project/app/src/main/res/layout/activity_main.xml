@@ -23,7 +23,6 @@
         android:id="@+id/btn_subject"
         android:layout_width="366dp"
         android:layout_height="119dp"
-        android:background="#4E1717"
         android:text="學科"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
