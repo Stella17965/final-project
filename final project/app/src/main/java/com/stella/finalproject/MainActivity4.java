@@ -23,21 +23,21 @@ public class MainActivity4 extends AppCompatActivity {
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent_toPage5.putExtra("url_1",1);
+                intent_toPage5.putExtra("URL_key",1);
                 startActivity(intent_toPage5);
             }
         });
         btn_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent_toPage5.putExtra("url_3",3);
+                intent_toPage5.putExtra("URL_key",3);
                 startActivity(intent_toPage5);
             }
         });
         btn_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent_toPage5.putExtra("url_4",4);
+                intent_toPage5.putExtra("URL_key",4);
                 startActivity(intent_toPage5);
             }
         });
