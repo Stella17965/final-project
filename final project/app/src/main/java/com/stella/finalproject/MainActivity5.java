@@ -62,6 +62,9 @@ public class MainActivity5 extends AppCompatActivity {
         rb_D=findViewById(R.id.rb_D);
 
         String URL_01="https://api.npoint.io/63e71e90551890751555";
+        String URL_03="https://api.npoint.io/e1d5c45c440ded0aabe4";
+        String URL_04="https://api.npoint.io/9f2266e414f0045f9ad0";
+
         Request request =new Request.Builder().url(URL_01).build();
         num=0;
         tv_num.setText("第"+(num+1)+"題");
