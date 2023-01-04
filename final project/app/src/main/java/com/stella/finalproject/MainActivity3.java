@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.stella.finalproject;
 
 
 import androidx.appcompat.app.AppCompatActivity;
