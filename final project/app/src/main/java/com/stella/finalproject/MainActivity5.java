@@ -88,7 +88,6 @@ public class MainActivity5 extends AppCompatActivity {
                 if(response.code()==200){
                     if(response.body()==null) return;
                     data = new Gson().fromJson(response.body().string(),Data.class);
-                    //final String[] items =new String[data.questions.length];
 
                     runOnUiThread(()->{
                         tv_question.setText(data.questions[num].Q_text);
@@ -135,8 +134,6 @@ public class MainActivity5 extends AppCompatActivity {
             }
         });
 
-
-
         btn_next.setOnClickListener(view -> {
             rg.clearCheck();
             rb_A.setBackgroundColor(Color.rgb(255,255,255));
@@ -159,8 +156,6 @@ public class MainActivity5 extends AppCompatActivity {
                     answer=data.questions[num].answer;
                 });
             }
-
-
         });
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
@@ -170,27 +165,23 @@ public class MainActivity5 extends AppCompatActivity {
                 switch(i){
                     case R.id.rb_A:
                         anw=1;
-                        if(anw != answer){
+                        if(anw != answer)
                             rb_A.setBackgroundColor(Color.rgb(236,45,110));
-                        }
                         break;
                     case R.id.rb_B:
                         anw=2;
-                        if(anw != answer){
+                        if(anw != answer)
                             rb_B.setBackgroundColor(Color.rgb(236,45,110));
-                        }
                         break;
                     case R.id.rb_C:
                         anw=3;
-                        if(anw != answer){
+                        if(anw != answer)
                             rb_C.setBackgroundColor(Color.rgb(236,45,110));
-                        }
                         break;
                     case R.id.rb_D:
                         anw=4;
-                        if(anw != answer){
+                        if(anw != answer)
                             rb_D.setBackgroundColor(Color.rgb(236,45,110));
-                        }
                         break;
                 }
 
