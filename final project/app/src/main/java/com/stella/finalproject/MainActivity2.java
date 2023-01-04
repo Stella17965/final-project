@@ -2,7 +2,6 @@ package com.stella.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +15,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private EditText editR2, editR4, editR8, editR9, editR12, editJ1, editJ2, editJ3, editACV1, editACV2, editDCV1, editDCV2, editI1, editI2;
     private TextView txtACV1,txtACV2,txtDCV1,txtDCV2,txtI1,txtI2;
-    private Button btn,btnOsc;
+    private Button btn;
     private float B, C, E, F, I, J, K, L, M, N;
 
     private float A=36,D=0,G=50.9f,H=0;
@@ -48,11 +47,11 @@ public class MainActivity2 extends AppCompatActivity {
         txtI2=(TextView)findViewById(R.id.textView31);
         btn = (Button) findViewById(R.id.button);
 
-        btn_drawwave=findViewById(R.id.btn_drawwave);
-        Intent intent_toPage3 = new Intent(this,MainActivity3.class);
+        btn_drawwave=(Button)findViewById(R.id.btn_drawwave);
 
         btn.setOnClickListener(btnTransListener);
-
+        //btn_drawwave.setOnClickListener(btnTransListener);
+        Intent intent_toPage3 = new Intent(this,MainActivity3.class);
 
         btn_drawwave.setOnClickListener(new View.OnClickListener() {
             @Override
