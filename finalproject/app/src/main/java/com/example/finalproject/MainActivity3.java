@@ -137,11 +137,9 @@ public class MainActivity3 extends AppCompatActivity{
 
             @Override
             public void onClick(final View source) {
-                //清除画布，重新绘制画布背景
                 drawBack(holder);
                 cx = X_OFFSET;
                 if (task != null) {
-                    //取消任务
                     task.cancel();
                 }
 
