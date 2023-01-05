@@ -129,6 +129,7 @@ public class MainActivity5 extends AppCompatActivity {
                     rb_B.setText(data.questions[num].B);
                     rb_C.setText(data.questions[num].C);
                     rb_D.setText(data.questions[num].D);
+                    answer=data.questions[num].answer;
                 });
 
             }
