@@ -162,6 +162,10 @@ public class MainActivity5 extends AppCompatActivity {
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(RadioGroup group, int i) {
+                rb_A.setBackgroundColor(Color.rgb(255,255,255));
+                rb_B.setBackgroundColor(Color.rgb(255,255,255));
+                rb_C.setBackgroundColor(Color.rgb(255,255,255));
+                rb_D.setBackgroundColor(Color.rgb(255,255,255));
 
                 switch(i){
                     case R.id.rb_A:
